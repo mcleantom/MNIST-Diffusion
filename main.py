@@ -372,14 +372,14 @@ def training_loop(ddpm, loader, n_epochs, optim, device, display=False, store_pa
 
 
 def main():
-    # Defining model
+    # # Defining model
     n_steps, min_beta, max_beta = 1000, 10 ** -4, 0.02  # Originally used by the authors
     device = "cpu" # torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using {device}")
-    ddpm = MyDDPM(MyUNet(n_steps), n_steps=n_steps, min_beta=min_beta, max_beta=max_beta, device=device)
-    training_loop(ddpm, loader, n_eopchs, Adam(ddpm.parameters(), lr=lr), device, display=True, store_path=store_path)
+    # print(f"Using {device}")
+    # ddpm = MyDDPM(MyUNet(n_steps), n_steps=n_steps, min_beta=min_beta, max_beta=max_beta, device=device)
+    # training_loop(ddpm, loader, n_eopchs, Adam(ddpm.parameters(), lr=lr), device, display=True, store_path=store_path)
     best_model = MyDDPM(MyUNet(), n_steps=n_steps, device=device)
-    best_model.load_state_dict(torch.load(store_path), map_location=device)
+    best_model.load_state_dict(torch.load(store_path))
     best_model.eval()
     generated = generate_new_images(
         best_model,
